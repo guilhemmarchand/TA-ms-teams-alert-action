@@ -1,0 +1,59 @@
+<form class="form-horizontal form-complex">
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_url">Override default Webhook URL:  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_url" id="ms_teams_publish_to_channel_alert_ms_teams_url"/>
+                <span class="help-block"> 
+                    Enter the Webhook URL to be used for this alert, this overrides any global setting defined in the addon.
+(https is enforced and will be added automatically if necessary, can be overridden on a per alert basis)
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_activity_title">Message Activity Title <span class="required">*</span> </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_activity_title" id="ms_teams_publish_to_channel_alert_ms_teams_activity_title"/>
+                <span class="help-block"> 
+                    Enter the Activity Title for this message, this can include dynamic results. ($result.field$)
+This field is required.
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_fields_list">Message fields list <span class="required">*</span> </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_fields_list" id="ms_teams_publish_to_channel_alert_ms_teams_fields_list"/>
+                <span class="help-block"> 
+                    Enter the comma separated list of fields to include in the message.
+Each field has to be a field resulting from the search.
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_image_link">Override MS teams image link for publication  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_image_link" id="ms_teams_publish_to_channel_alert_ms_teams_image_link"/>
+                <span class="help-block"> 
+                    URL of the picture to be used for messages publication for this alert.
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_name">Potential Action Name  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_action_name" id="ms_teams_publish_to_channel_alert_ms_teams_potential_action_name"/>
+                <span class="help-block"> 
+                    Enter the name of the potential action that will be made available in the channel message.
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_url">Potential Action URL  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_action_url" id="ms_teams_publish_to_channel_alert_ms_teams_potential_action_url"/>
+                <span class="help-block"> 
+                    Enter the value for the potential action URL that will be made available in the message.
+                </span>
+    </div>
+</div>
+</form>
