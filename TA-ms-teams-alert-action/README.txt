@@ -2,4 +2,4 @@
 
 Documentation is hosted online at:
 
-TA-ms-teams-alert-action.readthedocs.io
+https://TA-ms-teams-alert-action.readthedocs.io
