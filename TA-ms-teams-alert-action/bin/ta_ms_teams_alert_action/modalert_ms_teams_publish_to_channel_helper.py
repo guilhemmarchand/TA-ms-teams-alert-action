@@ -125,6 +125,7 @@ def process_event(helper, *args, **kwargs):
 
     # Get the message summary (required)
     alert_ms_teams_activity_title = helper.get_param("alert_ms_teams_activity_title")
+    alert_ms_teams_activity_title = checkstr(alert_ms_teams_activity_title)
     if alert_ms_teams_activity_title is None:
         helper.log_info("No activity title was provided, reverted to default: Splunk alert")
         alert_ms_teams_activity_title = "Splunk alert"
@@ -168,6 +169,8 @@ def process_event(helper, *args, **kwargs):
 
                     if count != 0:
                         data_json = data_json + ','
+                    key = checkstr(key)
+                    value = checkstr(value)
                     data_json = data_json + '{\n'
                     data_json = data_json + '\"name\": \"' + key + '\",\n'
                     data_json = data_json + '\"value\": \"' + value + '\"\n'
@@ -244,3 +247,17 @@ def process_event(helper, *args, **kwargs):
         helper.log_info('Microsoft Teams publish to channel was successful. {}, '
                         'content={}'.format(alert_ms_teams_url, response.text))
         return response.text
+
+
+def checkstr(i):
+
+    if i is not None:
+        i = i.replace("\\", "\\\\")
+        # Manage line breaks
+        i = i.replace("\n", "\\n")
+        i = i.replace("\r", "\\r")
+        # Manage tabs
+        i = i.replace("\t", "\\t")
+        # Manage breaking delimiters
+        i = i.replace("\"", "\\\"")
+        return i
