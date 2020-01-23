@@ -78,7 +78,7 @@
             <chart>
                 <search>
                     <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel") "Microsoft Teams publish to channel was successful"
-| timechart minspan=5m bins=1000 dc(jira_issue) as "Number of messages posted"</query>
+| timechart minspan=5m bins=1000 count as "Number of messages posted"</query>
                     <earliest>$timerange.earliest$</earliest>
                     <latest>$timerange.latest$</latest>
                 </search>
