@@ -81,6 +81,7 @@ def process_event(helper, *args, **kwargs):
 
     import requests
     import json
+    from collections import OrderedDict
 
     helper.set_log_level(helper.log_level)
     helper.log_info("Alert action Microsoft Teams publish to channel started.")
@@ -200,11 +201,11 @@ def process_event(helper, *args, **kwargs):
                             "compliance purpose, the potential action has been disabled automatically.")
 
             # terminate the sections pattern
-            data_json = data_json + '\n' + '\"markdown\": true' + '\n' + '}]'
+            data_json = data_json + '\n' + '\"markdown\": false' + '\n' + '}]'
 
         else:
             # terminate the sections pattern
-            data_json = data_json + '\n' + '\"markdown\": true' + '\n' + '}],'
+            data_json = data_json + '\n' + '\"markdown\": false' + '\n' + '}],'
             data_json = data_json + '\"potentialAction\": [{' + '\n'
             data_json = data_json + '\"@type\": \"OpenUri\",' + '\n'
             data_json = data_json + '\"name\": \"' + alert_ms_teams_potential_action_name + '\",' + '\n'
@@ -214,14 +215,15 @@ def process_event(helper, *args, **kwargs):
 
     else:
         # terminate the sections pattern
-        data_json = data_json + '\n' + '\"markdown\": true' + '\n' + '}]'
+        data_json = data_json + '\n' + '\"markdown\": false' + '\n' + '}]'
 
     # Terminate the json
     data_json = data_json + '\n' + '}'
 
     # Properly load json
     try:
-        data_json = json.dumps(json.loads(data_json, strict=False), indent=4)
+        data_json = json.dumps(json.loads(data_json,
+                                          strict=False, object_pairs_hook=OrderedDict), indent=4)
     except Exception as e:
         helper.log_error("json loads failed to accept some of the characters,"
                          " raw json data before json.loads:={}".format(data_json))

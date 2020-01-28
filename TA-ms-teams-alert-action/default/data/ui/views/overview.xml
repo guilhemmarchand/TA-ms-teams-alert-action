@@ -13,7 +13,7 @@
         <panel>
             <single>
                 <search>
-                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel")
+                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="tamsteamsalertaction:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel")
 | transaction sid startswith="Alert action Microsoft Teams publish to channel started"
 | eval transaction_status=if(match(_raw, "Microsoft Teams publish to channel was successful"), "success", "failure") | where transaction_status="success"
 | stats dc(sid)</query>
@@ -44,7 +44,7 @@
         <panel>
             <single>
                 <search>
-                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel")
+                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="tamsteamsalertaction:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel")
 | transaction sid startswith="Alert action Microsoft Teams publish to channel started"
 | eval transaction_status=if(match(_raw, "Microsoft Teams publish to channel was successful"), "success", "failure") | where transaction_status="failure"
 | stats dc(sid)</query>
@@ -77,7 +77,7 @@
         <panel>
             <chart>
                 <search>
-                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel") "Microsoft Teams publish to channel was successful"
+                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="tamsteamsalertaction:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel") "Microsoft Teams publish to channel was successful"
 | timechart minspan=5m bins=1000 count as "Number of messages posted"</query>
                     <earliest>$timerange.earliest$</earliest>
                     <latest>$timerange.latest$</latest>
@@ -102,7 +102,7 @@
             </input>
             <table>
                 <search>
-                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel")
+                    <query>(index="_internal" OR index="cim_modactions") (sourcetype="ta:ms:teams:alert:log" OR sourcetype="tamsteamsalertaction:log" OR sourcetype="modular_alerts:ms_teams_publish_to_channel")
 | transaction sid startswith="Alert action Microsoft Teams publish to channel started"
 | eval transaction_status=if(match(_raw, "Microsoft Teams publish to channel was successful"), "success", "failure")
 | stats first(transaction_status) as transaction_status, first(app) as app, first(action_mode) as action_mode, values(sid) as sid, first(search_name) as search_name, first(user) as user, latest(_raw) as _raw by _time | sort - _time
