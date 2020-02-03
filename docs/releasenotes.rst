@@ -15,3 +15,10 @@ Version 1.0.2
 =============
 
 - Fix: Timechart not working in overview to bad field name
+
+Version 1.0.3
+=============
+
+- Fix: Order json object alphabetically before post operation to provide ordered fields in message publication.
+- Fix: Sourcetype on non CIM deployments within saved searches and overview dashboard.
+- Fix: Disable markdown support for text value fields to avoid being wrongly interpreted by Teams, in the context of Splunk we most likely want potentially piece raw block of text.
