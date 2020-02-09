@@ -22,3 +22,11 @@ Version 1.0.3
 - Fix: Order json object alphabetically before post operation to provide ordered fields in message publication.
 - Fix: Sourcetype on non CIM deployments within saved searches and overview dashboard.
 - Fix: Disable markdown support for text value fields to avoid being wrongly interpreted by Teams, in the context of Splunk we most likely want potentially piece raw block of text.
+
+Version 1.0.4
+=============
+
+- Fix: Fields resulting from the Splunk search stored in the facts section of the message card were not ordered alphabetically properly, this is now fixed and fields are systematically sorted
+- Feature: Allows activating a second openURL potential action per alert
+- Feature: Allows defining an HttpPOST potential action in MS Teams per alert
+- Fix: Better and shorter explanation of options

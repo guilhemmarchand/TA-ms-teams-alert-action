@@ -4,8 +4,7 @@
     <div class="controls">
 	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_url" id="ms_teams_publish_to_channel_alert_ms_teams_url"/>
                 <span class="help-block"> 
-                    Enter the Webhook URL to be used for this alert, this overrides any global setting defined in the addon.
-(https is enforced and will be added automatically if necessary, can be overridden on a per alert basis)
+                    Webhook URL, overrides default URL in global setting if defined. (https is enforced and added if not present)
                 </span>
     </div>
 </div>
@@ -14,7 +13,7 @@
     <div class="controls">
 	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_activity_title" id="ms_teams_publish_to_channel_alert_ms_teams_activity_title"/>
                 <span class="help-block"> 
-                    Enter the Activity Title for this message, this can include dynamic results. ($result.field$)
+                    Activity Title of the message, can include dynamic results. ($result.field$)
 This field is required.
                 </span>
     </div>
@@ -24,7 +23,7 @@ This field is required.
     <div class="controls">
 	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_fields_list" id="ms_teams_publish_to_channel_alert_ms_teams_fields_list"/>
                 <span class="help-block"> 
-                    Enter the comma separated list of fields to include in the message.
+                    Comma separated list of fields to include in the message.
 Each field has to be a field resulting from the search.
                 </span>
     </div>
@@ -39,20 +38,74 @@ Each field has to be a field resulting from the search.
     </div>
 </div>
 <div class="control-group">
-	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_name">Potential Action Name  </label>
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_name">OpenURL Potential Action Name  </label>
     <div class="controls">
 	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_action_name" id="ms_teams_publish_to_channel_alert_ms_teams_potential_action_name"/>
                 <span class="help-block"> 
-                    Enter the name of the potential action that will be made available in the channel message.
+                    Label of the open URL potential action. (optional unless value is defined)
                 </span>
     </div>
 </div>
 <div class="control-group">
-	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_url">Potential Action URL  </label>
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_url">OpenURL Potential Action URL  </label>
     <div class="controls">
 	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_action_url" id="ms_teams_publish_to_channel_alert_ms_teams_potential_action_url"/>
                 <span class="help-block"> 
-                    Enter the value for the potential action URL that will be made available in the message.
+                    URl value for the open URL potential action URL. (optional unless label is defined)
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_name2">OpenURL 2nd Potential Action Name  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_action_name2" id="ms_teams_publish_to_channel_alert_ms_teams_potential_action_name2"/>
+                <span class="help-block">
+                    Label of the second open URL potential action. (optional unless value is defined)
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_action_url2">OpenURL 2nd Potential Action URL  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_action_url2" id="ms_teams_publish_to_channel_alert_ms_teams_potential_action_url2"/>
+                <span class="help-block">
+                    URl value for the second open URL potential action URL. (optional unless label is defined)
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_name">HttpPOST Potential Action Name  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_postaction_name" id="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_name"/>
+                <span class="help-block">
+                    Label of the HttpPOST potential action. (optional unless target is defined)
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_target">HttpPOST Potential Action Target  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_postaction_target" id="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_target"/>
+                <span class="help-block">
+                    Target value for the HttpPOST potential action. (optional unless label is defined)
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_body">HttpPOST Potential Action Body  </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_postaction_body" id="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_body"/>
+                <span class="help-block">
+                    The body of the POST request. (optional, see: <a href="https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference#httppost-action">Microsoft actionable message card reference</a>)
+                </span>
+    </div>
+</div>
+<div class="control-group">
+	<label class="control-label" for="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_bodycontenttype">HttpPOST Potential Action Body Content Type </label>
+    <div class="controls">
+	<input type="text" name="action.ms_teams_publish_to_channel.param.alert_ms_teams_potential_postaction_bodycontenttype" id="ms_teams_publish_to_channel_alert_ms_teams_potential_postaction_bodycontenttype"/>
+                <span class="help-block">
+                    The body of the POST request. (optional)
                 </span>
     </div>
 </div>
