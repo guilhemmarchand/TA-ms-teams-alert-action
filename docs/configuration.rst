@@ -63,17 +63,27 @@ This setting is required, and at least one field needs to be defined.
 
 This defines the icon link to be used for the message publication, and will override any global setting that has been set.
 
-- **Potential Action Name** and **Potential Action URL**:
+- **Potential Action Name** and **Potential Action URL**
 
 These two items define the action link button and target that can automatically be added when the message is published in Microsoft Teams.
 
 For this option to be activated, both of these items need to be configured, note that the URL can accept dynamic input fields resulting from the search.
+
+**A second OopenURI action can be added in addition.**
 
 **Message example:**
 
 .. image:: img/message_example.png
    :alt: message_example.png
    :align: center
+
+- **HttpPOST Action:**
+
+You can add an HttpPOST action which users can use directly in Microsoft Teams, this is allows interacting with Splunk or an external system directly within the Teams interface.
+
+*For more information, please consult the following documentation:*
+
+https://docs.microsoft.com/en-us/outlook/actionable-messages/message-card-reference
 
 Status dashboard
 ================
