@@ -1,5 +1,9 @@
 # Microsoft Teams alert action for Splunk
 
+| branch | build status |
+| ---    | ---          |
+| master | [![master status](https://circleci.com/gh/guilhemmarchand/TA-ms-teams-alert-action/tree/master.svg?style=svg)](https://circleci.com/gh/guilhemmarchand/TA-ms-teams-alert-action/tree/master)
+
 **This application provides alert actions for Microsoft Teams messages publication to allows advanced messages publication from Splunk, including:**
 
 - Markdown support
