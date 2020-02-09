@@ -57,7 +57,7 @@ jobs:
       - run:
           name: run appinspect
           command: |
-            cd trackme
+            cd TA-ms-teams-alert-action
             rm -rf TA-ms-teams-alert-action/.git
             rm -rf TA-ms-teams-alert-action/.circleci
             rm -rf TA-ms-teams-alert-action/.gitignore
@@ -75,15 +75,15 @@ jobs:
           paths:
             - "venv"
       - persist_to_workspace:
-          root: trackme/dist/
+          root: TA-ms-teams-alert-action/dist/
           paths:
-              - trackme.tar.gz
+              - TA-ms-teams-alert-action.tar.gz
   publish-github-release:
     docker:
       - image: cibuilds/github:0.10
     steps:
       - attach_workspace:
-          at: ~/trackme/dist/trackme.tar.gz
+          at: ~/TA-ms-teams-alert-action/dist/TA-ms-teams-alert-action.tar.gz
       - run:
           name: publish release on github
           command: |
