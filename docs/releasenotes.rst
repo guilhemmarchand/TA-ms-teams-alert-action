@@ -30,3 +30,10 @@ Version 1.0.4
 - Feature: Allows activating a second openURL potential action per alert
 - Feature: Allows defining an HttpPOST potential action in MS Teams per alert
 - Fix: Better and shorter explanation of options
+
+Version 1.0.5
+=============
+
+- Fix: Global settings are not properly use and do not define default values to be overridden on a per alert basis, this release fixes these issues
+- Fix: Events iteration issue, if one was defining a massive alert with no by key throttling, building the Json object would fail
+- Fix: Json escape character protection for OpenURI values (Open URL potential action)
