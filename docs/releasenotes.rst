@@ -37,3 +37,10 @@ Version 1.0.5
 - Fix: Global settings are not properly use and do not define default values to be overridden on a per alert basis, this release fixes these issues
 - Fix: Events iteration issue, if one was defining a massive alert with no by key throttling, building the Json object would fail
 - Fix: Json escape character protection for OpenURI values (Open URL potential action)
+
+Version 1.0.6
+=============
+
+- Fix: Proxy configuration was not working and not used
+- Change: Overview dashboard switched to dark theme
+- Change: Configure URL message update
