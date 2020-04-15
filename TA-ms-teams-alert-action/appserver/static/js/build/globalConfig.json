@@ -152,7 +152,7 @@
                             "field": "default_ms_teams_url",
                             "label": "Default MS team channel:",
                             "type": "text",
-                            "help": "Webhook URL.\n(https enforced, do not add https://, can be overridden on a per alert basis)",
+                            "help": "Webhook URL.\n(https enforced, can be overridden on a per alert basis)",
                             "required": false,
                             "defaultValue": "",
                             "validators": [

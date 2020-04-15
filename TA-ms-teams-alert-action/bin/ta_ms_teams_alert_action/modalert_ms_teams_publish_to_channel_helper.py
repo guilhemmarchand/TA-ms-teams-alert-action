@@ -113,6 +113,18 @@ def process_event(helper, *args, **kwargs):
         active_ms_teams_url = 'https://' + active_ms_teams_url
         helper.log_debug("active_ms_teams_url={}".format(active_ms_teams_url))
 
+    # get proxy configuration
+    proxy_config = helper.get_proxy()
+    proxy_url = proxy_config.get("proxy_url")
+    helper.log_debug("proxy_url={}".format(proxy_url))
+
+    if proxy_url is not None:
+        opt_use_proxy = True
+        helper.log_debug("use_proxy set to True")
+    else:
+        opt_use_proxy = False
+        helper.log_debug("use_proxy set to False")
+
     # Manage publication icon, this is optional and can be defined globally in the addon or on per alert basis, or not
     # defined
     alert_ms_teams_image_link = helper.get_param("alert_ms_teams_image_link")
@@ -354,8 +366,9 @@ def process_event(helper, *args, **kwargs):
                 'Content-Type': 'application/json',
             }
 
-            response = requests.post(active_ms_teams_url, headers=headers, data=data_json,
-                                     verify=False)
+            response = helper.send_http_request(active_ms_teams_url, "POST", parameters=None, payload=data_json,
+                                                headers=headers, cookies=None, verify=False,
+                                                cert=None, timeout=None, use_proxy=opt_use_proxy)
 
             # Get response
             if response.status_code not in (200, 201, 204):
