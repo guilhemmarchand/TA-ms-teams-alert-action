@@ -16,7 +16,7 @@
 
 https://TA-ms-teams-alert-action.readthedocs.io
 
-![screenshot](./TA-ms-teams-alert-action/appserver/static/screenshot.png)
+![screenshot](./docs/img/overview.png)
 
 ![screenshot1](./TA-ms-teams-alert-action/appserver/static/screenshot1.png)
 
