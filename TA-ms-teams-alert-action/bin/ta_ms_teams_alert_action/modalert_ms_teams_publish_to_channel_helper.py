@@ -14,7 +14,8 @@ def process_event(helper, *args, **kwargs):
     # The following example sends rest requests to some endpoint
     # response is a response object in python requests library
     response = helper.send_http_request("http://www.splunk.com", "GET", parameters=None,
-                                        payload=None, headers=None, cookies=None, verify=True, cert=None, timeout=None, use_proxy=True)
+                                        payload=None, headers=None, cookies=None, verify=True, cert=None,
+                                        timeout=None, use_proxy=True)
     # get the response headers
     r_headers = response.headers
     # get the response body as text
@@ -87,9 +88,25 @@ def process_event(helper, *args, **kwargs):
     import requests
     import json
     from collections import OrderedDict
+    import time
+    import uuid
+
+    import splunk.entity
+    import splunk.Intersplunk
 
     helper.set_log_level(helper.log_level)
     helper.log_info("Alert action Microsoft Teams publish to channel started.")
+
+    # Retrieve the session_key
+    session_key = helper.session_key
+    helper.log_debug("session_key={}".format(session_key))
+
+    # Get splunkd port
+    entity = splunk.entity.getEntity('/server', 'settings', namespace='TA-ms-teams-alert-action',
+                                     sessionKey=session_key, owner='-')
+    mydict = entity
+    splunkd_port = mydict['mgmtHostPort']
+    helper.log_debug("splunkd_port={}".format(splunkd_port))
 
     # Retrieve default Webhook URL and optional per alert Webhook URL
     default_ms_teams_url = helper.get_global_setting("default_ms_teams_url")
@@ -244,16 +261,21 @@ def process_event(helper, *args, **kwargs):
 
             # HttpPOST action
             alert_ms_teams_potential_postaction_name = helper.get_param("alert_ms_teams_potential_postaction_name")
-            helper.log_debug("alert_ms_teams_potential_postaction_name={}".format(alert_ms_teams_potential_postaction_name))
+            helper.log_debug("alert_ms_teams_potential_postaction_name={}".
+                             format(alert_ms_teams_potential_postaction_name))
 
             alert_ms_teams_potential_postaction_target = helper.get_param("alert_ms_teams_potential_postaction_target")
-            helper.log_debug("alert_ms_teams_potential_postaction_target={}".format(alert_ms_teams_potential_postaction_target))
+            helper.log_debug("alert_ms_teams_potential_postaction_target={}".
+                             format(alert_ms_teams_potential_postaction_target))
 
             alert_ms_teams_potential_postaction_body = helper.get_param("alert_ms_teams_potential_postaction_body")
-            helper.log_debug("alert_ms_teams_potential_postaction_body={}".format(alert_ms_teams_potential_postaction_body))
+            helper.log_debug("alert_ms_teams_potential_postaction_body={}".
+                             format(alert_ms_teams_potential_postaction_body))
 
-            alert_ms_teams_potential_postaction_bodycontenttype = helper.get_param("alert_ms_teams_potential_postaction_bodycontenttype")
-            helper.log_debug("alert_ms_teams_potential_postaction_bodycontenttype={}".format(alert_ms_teams_potential_postaction_bodycontenttype))
+            alert_ms_teams_potential_postaction_bodycontenttype = helper.\
+                get_param("alert_ms_teams_potential_postaction_bodycontenttype")
+            helper.log_debug("alert_ms_teams_potential_postaction_bodycontenttype={}".
+                             format(alert_ms_teams_potential_postaction_bodycontenttype))
 
             # terminate the sections pattern
             data_json = data_json + '\n' + '\"markdown\": false' + '\n' + '}]'
@@ -269,8 +291,10 @@ def process_event(helper, *args, **kwargs):
 
                 # https is enforced for certification compliance, action has to target https
                 if 'https://' not in alert_ms_teams_potential_action_url:
-                    helper.log_warn("alert_ms_teams_potential_action_url={}".format(alert_ms_teams_potential_action_url))
-                    helper.log_warn("the potential action URL configured does not target an https site, which is required for "
+                    helper.log_warn("alert_ms_teams_potential_action_url={}".
+                                    format(alert_ms_teams_potential_action_url))
+                    helper.log_warn("the potential action URL configured does not "
+                                    "target an https site, which is required for "
                                     "compliance purpose, the potential action has been disabled automatically.")
                     has_action1 = False
                 else:
@@ -282,7 +306,8 @@ def process_event(helper, *args, **kwargs):
 
                 # https is enforced for certification compliance, action has to target https
                 if 'https://' not in alert_ms_teams_potential_action_url2:
-                    helper.log_warn("alert_ms_teams_potential_action_url2={}".format(alert_ms_teams_potential_action_url2))
+                    helper.log_warn("alert_ms_teams_potential_action_url2={}".
+                                    format(alert_ms_teams_potential_action_url2))
                     helper.log_warn(
                         "the potential action URL configured does not target an https site, which is required for "
                         "compliance purpose, the potential action has been disabled automatically.")
@@ -292,13 +317,16 @@ def process_event(helper, *args, **kwargs):
 
             # HttpPOST action
             if ((alert_ms_teams_potential_postaction_name and alert_ms_teams_potential_postaction_name is not None) and
-                    (alert_ms_teams_potential_postaction_target and alert_ms_teams_potential_postaction_target) is not None):
+                    (alert_ms_teams_potential_postaction_target and
+                     alert_ms_teams_potential_postaction_target) is not None):
 
                 # https is enforced for certification compliance, action has to target https
                 if 'https://' not in alert_ms_teams_potential_postaction_target:
-                    helper.log_warn("alert_ms_teams_potential_postaction_target={}".format(alert_ms_teams_potential_postaction_target))
+                    helper.log_warn("alert_ms_teams_potential_postaction_target={}".
+                                    format(alert_ms_teams_potential_postaction_target))
                     helper.log_warn(
-                        "the potential HttpPOST action target configured does not target an https site, which is required for "
+                        "the potential HttpPOST action target configured does not target an "
+                        "https site, which is required for "
                         "compliance purpose, the potential action has been disabled automatically.")
                     has_postaction = False
                 else:
@@ -313,7 +341,8 @@ def process_event(helper, *args, **kwargs):
                     data_json = data_json + '\"@type\": \"OpenUri\",' + '\n'
                     data_json = data_json + '\"name\": \"' + alert_ms_teams_potential_action_name + '\",' + '\n'
                     data_json = data_json + '\"targets\": [' + '\n'
-                    data_json = data_json + '{\"os\": \"default\", \"uri\": \"' + checkstr(alert_ms_teams_potential_action_url) + '\"}' + '\n'
+                    data_json = data_json + '{\"os\": \"default\", \"uri\": \"' \
+                                + checkstr(alert_ms_teams_potential_action_url) + '\"}' + '\n'
                     data_json = data_json + ']\n' + '}\n'
 
                 if has_action1 and has_action2:
@@ -321,13 +350,15 @@ def process_event(helper, *args, **kwargs):
                     data_json = data_json + '\"@type\": \"OpenUri\",' + '\n'
                     data_json = data_json + '\"name\": \"' + alert_ms_teams_potential_action_name2 + '\",' + '\n'
                     data_json = data_json + '\"targets\": [' + '\n'
-                    data_json = data_json + '{\"os\": \"default\", \"uri\": \"' + checkstr(alert_ms_teams_potential_action_url2) + '\"}' + '\n'
+                    data_json = data_json + '{\"os\": \"default\", \"uri\": \"' \
+                                + checkstr(alert_ms_teams_potential_action_url2) + '\"}' + '\n'
                     data_json = data_json + ']\n' + '}\n'
 
                 if has_action2 and not has_action1:
                     helper.log_warn(
                         "A second openURI action has been configured while the first openURI action has not."
-                        "Review your configuration to use the first action instead, so far this action is being ignored.")
+                        "Review your configuration to use the first action instead,"
+                        " so far this action is being ignored.")
 
                 if has_postaction and not has_action1:
                     data_json = data_json + '\n{'
@@ -366,20 +397,77 @@ def process_event(helper, *args, **kwargs):
                 'Content-Type': 'application/json',
             }
 
-            response = helper.send_http_request(active_ms_teams_url, "POST", parameters=None, payload=data_json,
-                                                headers=headers, cookies=None, verify=False,
-                                                cert=None, timeout=None, use_proxy=opt_use_proxy)
+            # Try http post, catch exceptions and incorrect http return codes
+            try:
+                response = helper.send_http_request(active_ms_teams_url, "POST", parameters=None, payload=data_json,
+                                                    headers=headers, cookies=None, verify=False,
+                                                    cert=None, timeout=None, use_proxy=opt_use_proxy)
+                # No http exception, but http post was not successful
+                if response.status_code not in (200, 201, 204):
 
-            # Get response
-            if response.status_code not in (200, 201, 204):
+                    helper.log_error("Microsoft Teams publish to channel has failed!. "
+                                     "url={}, data={}, HTTP Error={}, HTTP Reason={}, HTTP content={}"
+                                     .format(active_ms_teams_url, data_json, response.status_code,
+                                             response.reason, response.text))
+                    # Store the failed publication in the replay KVstore
+                    record_url = 'https://localhost:' + str(
+                        splunkd_port) + '/servicesNS/nobody/' \
+                                        'TA-ms-teams-alert-action/storage/collections/data/kv_ms_teams_failures_replay'
+                    record_uuid = str(uuid.uuid1())
+                    helper.log_error(
+                        'Microsoft Teams publish to channel failed message stored for next chance'
+                        ' replay purposes in the '
+                        'replay KVstore with uuid: ' + record_uuid)
+                    headers = {
+                        'Authorization': 'Splunk %s' % session_key,
+                        'Content-Type': 'application/json'}
+
+                    record = '{"_key": "' + record_uuid + '", "url": "' \
+                             + str(active_ms_teams_url) + '", "ctime": "' + str(
+                        time.time()) \
+                             + '", "status": "temporary_failure", "no_attempts": "1", "data": "' + checkstr(data_json) \
+                             + '"}'
+                    response = requests.post(record_url, headers=headers, data=record,
+                                             verify=False)
+                    if response.status_code not in (200, 201, 204):
+                        helper.log_error(
+                            'KVstore saving has failed!. url={}, data={}, HTTP Error={}, '
+                            'content={}'.format(record_url, record, response.status_code, response.text))
+
+                else:
+                    # http post was successful
+                    helper.log_info('Microsoft Teams message successfully created. {}, '
+                                    'content={}'.format(active_ms_teams_url, response.text))
+                    return response.text
+
+            # any exception such as proxy error, dns failure etc. will be catch here
+            except Exception as e:
+                helper.log_error("Microsoft Teams publish to channel has failed!:{}".format(str(e)))
                 helper.log_error(
-                    'Microsoft Teams publish to channel has failed!. url={}, data={}, HTTP Error={}, '
-                    'content={}'.format(active_ms_teams_url, data_json, response.status_code, response.text))
-                return 0
-            else:
-                helper.log_info('Microsoft Teams publish to channel was successful. {}, '
-                                'content={}'.format(active_ms_teams_url, response.text))
-                return response.text
+                    'message content={}'.format(data_json))
+
+                # Store the failed publication in the replay KVstore
+                record_url = 'https://localhost:' + str(
+                    splunkd_port) + '/servicesNS/nobody/' \
+                                    'TA-ms-teams-alert-action/storage/collections/data/kv_ms_teams_failures_replay'
+                record_uuid = str(uuid.uuid1())
+                helper.log_error(
+                    'Microsoft Teams publish to channel failed message stored for next chance replay purposes in the '
+                    'replay KVstore with uuid: ' + record_uuid)
+                headers = {
+                    'Authorization': 'Splunk %s' % session_key,
+                    'Content-Type': 'application/json'}
+
+                record = '{"_key": "' + record_uuid + '", "url": "' + str(active_ms_teams_url) + '", "ctime": "' + str(
+                    time.time()) \
+                         + '", "status": "temporary_failure", "no_attempts": "1", "data": "' + checkstr(data_json) \
+                         + '"}'
+                response = requests.post(record_url, headers=headers, data=record,
+                                         verify=False)
+                if response.status_code not in (200, 201, 204):
+                    helper.log_error(
+                        'KVstore saving has failed!. url={}, data={}, HTTP Error={}, '
+                        'content={}'.format(record_url, record, response.status_code, response.text))
 
 
 def checkstr(i):

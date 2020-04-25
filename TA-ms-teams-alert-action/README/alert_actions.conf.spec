@@ -14,3 +14,14 @@ param.alert_ms_teams_potential_postaction_name = <string> Potential HttpPOST Act
 param.alert_ms_teams_potential_postaction_target = <string> Potential HttpPOST Action Target.
 param.alert_ms_teams_potential_postaction_body = <string> Potential HttpPOST Action Body.
 param.alert_ms_teams_potential_postaction_bodycontenttype = <string> Potential HttpPOST Action Body Content Type.
+
+[ms_teams_publish_to_channel_replay]
+python.version = python3
+param.message_url = <string> URL value stored in the KVstore.
+param.message_uuid = <string> UUID value stored in the KVstore.
+param.message_data = <string> JSON object stored in the KVstore.
+param.message_status = <string> Status stored in the KVstore.
+param.message_no_attempts = <string> Number of attempts stored in the KVstore.
+param.message_max_attempts = <string> Maximal number of attempts.
+param.message_ctime = <string> Creation time stored in the KVstore.
+param.message_mtime = <string> Modification time stored in the KVstore.
