@@ -44,3 +44,10 @@ Version 1.0.6
 - Fix: Proxy configuration was not working and not used
 - Change: Overview dashboard switched to dark theme
 - Change: Configure URL message update
+
+Version 1.0.7
+=============
+
+- Feature: Integration of the resilient store capabilities, which rely on a KVstore to automatically handle and retry temporary message creation failures with resiliency
+- Feature: Overview dashboard update to reflect the resilient store integration, news reports and alerts
+- Fix: Metadata avoid sharing alerts, reports and views at global level
