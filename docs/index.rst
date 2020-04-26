@@ -14,6 +14,14 @@ Welcome to the Splunk Microsoft Teams messages publication addon documentation
 - Choosing icon link for message publication
 - Activating potential link action and defining its link
 
+.. image:: img/overview.png
+   :alt: overview.png
+   :align: center
+
+.. image:: img/config3.png
+   :alt: config3.png
+   :align: center
+
 Overview:
 =========
 
@@ -34,8 +42,8 @@ Deployment and configuration:
    deployment
    configuration
 
-Versioniong and build history:
-==============================
+Versions and build history:
+===========================
 
 .. toctree::
    :maxdepth: 1
