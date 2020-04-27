@@ -108,3 +108,18 @@ Out the box alert for publishing failures detection
    :align: center
 
 Failures for publication can have different causes like network issues, typo or misconfiguration, as always the truth will be in the logs.
+
+Using the alert action for non admin users
+==========================================
+
+**For non admin users to be able to use the alert action, the following role is provided out of the box:**
+
+- msteams_alert_action
+
+This role needs to be inherited for the users, or your users to be member of this role.
+
+**The role provides:**
+
+- capability ``list_storage_passwords``
+- capability ``list_settings``
+- write permission to the resilient KVstore ``kv_ms_teams_failures_replay``

@@ -57,3 +57,11 @@ export = none
 [viewstates]
 access = read : [ * ], write : [ * ]
 export = system
+
+### Resilient store needs to have write permissions to member of the role
+
+[transforms/ms_teams_failures_replay]
+access = read : [ * ], write : [ admin, msteams_alert_action ]
+
+[collections/kv_ms_teams_failures_replay]
+access = read : [ * ], write : [ admin, msteams_alert_action ]
