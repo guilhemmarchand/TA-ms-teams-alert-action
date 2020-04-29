@@ -398,9 +398,10 @@ def process_event(helper, *args, **kwargs):
             }
 
             # Try http post, catch exceptions and incorrect http return codes
+            # Splunk Cloud vetting note, verify SSL is required for vetting purposes
             try:
                 response = helper.send_http_request(active_ms_teams_url, "POST", parameters=None, payload=data_json,
-                                                    headers=headers, cookies=None, verify=False,
+                                                    headers=headers, cookies=None, verify=True,
                                                     cert=None, timeout=None, use_proxy=opt_use_proxy)
                 # No http exception, but http post was not successful
                 if response.status_code not in (200, 201, 204):
@@ -427,6 +428,8 @@ def process_event(helper, *args, **kwargs):
                         time.time()) \
                              + '", "status": "temporary_failure", "no_attempts": "1", "data": "' + checkstr(data_json) \
                              + '"}'
+                    # Splunk Cloud vetting note, this communication is a localhost communication to splunkd and
+                    # does not have to be verified
                     response = requests.post(record_url, headers=headers, data=record,
                                              verify=False)
                     if response.status_code not in (200, 201, 204):
@@ -462,6 +465,8 @@ def process_event(helper, *args, **kwargs):
                     time.time()) \
                          + '", "status": "temporary_failure", "no_attempts": "1", "data": "' + checkstr(data_json) \
                          + '"}'
+                # Splunk Cloud vetting note, this communication is a localhost communication to splunkd and
+                # does not have to be verified
                 response = requests.post(record_url, headers=headers, data=record,
                                          verify=False)
                 if response.status_code not in (200, 201, 204):

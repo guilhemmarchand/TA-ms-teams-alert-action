@@ -61,3 +61,8 @@ Version 1.0.9
 =============
 
 - Fix: Provide an embedded role msteams_alert_action that can be inherited for non admin users to be allowed to fire the action and work with the resilient store feature
+
+Version 1.0.10
+==============
+
+- Change: For Splunk Cloud vetting purposes, SSL verification is now enabled for any external communications
