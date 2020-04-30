@@ -146,6 +146,11 @@ def process_event(helper, *args, **kwargs):
     message_mtime = helper.get_param("message_mtime")
     helper.log_debug("message_mtime={}".format(message_mtime))
 
+    # Splunk Cloud vetting note: https needs to be enforced for any external rest calls
+    if 'https://' not in message_url:
+        helper.log_error("Non https rest calls are not allowed for vetting compliance purposes")
+        return False
+
     # Properly load json
     try:
         message_data = json.dumps(json.loads(message_data, strict=False), indent=4)
