@@ -66,3 +66,9 @@ Version 1.0.10
 ==============
 
 - Change: For Splunk Cloud vetting purposes, SSL verification is now enabled for any external communications
+
+Version 1.0.11
+==============
+
+- Change: For Splunk Cloud vetting purposes, enforce https verification in modalert_ms_teams_publish_to_channel_replay_helper.py
+- Change: For Splunk Cloud vetting purposes, explicit Python3 mode in restmap.conf handler
