@@ -402,7 +402,7 @@ def process_event(helper, *args, **kwargs):
             try:
                 response = helper.send_http_request(active_ms_teams_url, "POST", parameters=None, payload=data_json,
                                                     headers=headers, cookies=None, verify=True,
-                                                    cert=None, timeout=None, use_proxy=opt_use_proxy)
+                                                    cert=None, timeout=120, use_proxy=opt_use_proxy)
                 # No http exception, but http post was not successful
                 if response.status_code not in (200, 201, 204):
 
