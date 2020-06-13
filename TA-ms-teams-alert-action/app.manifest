@@ -5,13 +5,13 @@
     "id": {
       "group": null,
       "name": "TA-ms-teams-alert-action",
-      "version": "1.0.12"
+      "version": "1.0.13"
     },
     "author": [
       {
         "name": "Guilhem Marchand",
-        "email": null,
-        "company": null
+        "email": "guilhem.marchnd@gmail.com",
+        "company": "OCTAMIS"
       }
     ],
     "releaseDate": null,
@@ -35,7 +35,7 @@
     "releaseNotes": {
       "name": null,
       "text": null,
-      "uri": null
+      "uri":"https://ta-ms-teams-alert-action.readthedocs.io/en/latest/releasenotes.html"
     }
   },
   "dependencies": {
@@ -45,9 +45,12 @@
   },
   "incompatibleApps": {
   },
-  "platformRequirements": {
-    "splunk": {
-      "Enterprise": "*"
-    }
-  }
+  "supportedDeployments": [
+    "_standalone",
+    "_distributed",
+    "_search_head_clustering"
+  ],
+  "targetWorkloads": [
+    "_search_heads"
+  ]
 }

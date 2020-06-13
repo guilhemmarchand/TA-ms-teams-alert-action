@@ -12,4 +12,5 @@ loglevel =
 
 [additional_parameters]
 default_ms_teams_url = 
-default_ms_teams_image_link = 
+default_ms_teams_image_link =
+default_ms_teams_ssl_verification =
