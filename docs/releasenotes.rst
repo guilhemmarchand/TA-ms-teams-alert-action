@@ -1,6 +1,13 @@
 Release notes
 #############
 
+Version 1.0.14
+==============
+
+- Fix: Issue #20 Provides an option to disable SSL certificate verification (but enabled by default) to avoid failures with environments using SSL interception
+- Feature: Issue #17 Provides an option on a per alert basis to allow ordering of the fields in the message by using the fields list ordering rather than alphabetical ordering
+- Fix: SLIM error for app vetting due to the introduction of the targetWorkloads in app.manifest which requires version 2.0.0 of the app.manifest schema
+
 Version 1.0.13
 ==============
 
