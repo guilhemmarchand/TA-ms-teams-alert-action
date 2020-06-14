@@ -5,6 +5,7 @@ Version 1.0.13
 ==============
 
 - Fix: Issue #20 Provides an option to disable SSL certificate verification (but enabled by default) to avoid failures with environments using SSL interception
+- Feature: Issue #17 Provides an option on a per alert basis to allow ordering of the fields in the message by using the fields list ordering rather than alphabetical ordering
 
 Version 1.0.12
 ==============
