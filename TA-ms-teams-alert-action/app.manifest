@@ -34,17 +34,15 @@
     },
     "releaseNotes": {
       "name": null,
-      "text": null,
-      "uri":"https://ta-ms-teams-alert-action.readthedocs.io/en/latest/releasenotes.html"
+      "text": "./README.txt",
+      "uri": "https://ta-ms-teams-alert-action.readthedocs.io/en/latest/releasenotes.html"
     }
   },
-  "dependencies": {
-  },
-  "tasks": [],
-  "inputGroups": {
-  },
-  "incompatibleApps": {
-  },
+  "dependencies": null,
+  "tasks": null,
+  "inputGroups": null,
+  "incompatibleApps": null,
+  "platformRequirements": null,
   "supportedDeployments": [
     "_standalone",
     "_distributed",
