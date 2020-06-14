@@ -1,11 +1,11 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "2.0.0",
   "info": {
     "title": "MS Teams alert action",
     "id": {
       "group": null,
       "name": "TA-ms-teams-alert-action",
-      "version": "1.0.13"
+      "version": "1.0.14"
     },
     "author": [
       {
