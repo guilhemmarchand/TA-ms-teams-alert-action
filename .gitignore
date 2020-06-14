@@ -27,3 +27,4 @@ backups
 # spl
 *.spl
 
+.DS_Store
