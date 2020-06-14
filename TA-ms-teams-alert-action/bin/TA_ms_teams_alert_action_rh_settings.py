@@ -111,6 +111,13 @@ fields_additional_parameters = [
             min_len=0, 
             max_len=8192, 
         )
+    ),
+    field.RestField(
+        'default_ms_teams_ssl_verification',
+        required=False,
+        encrypted=False,
+        default=0,
+        validator=None
     )
 ]
 model_additional_parameters = RestModel(fields_additional_parameters, name='additional_parameters')

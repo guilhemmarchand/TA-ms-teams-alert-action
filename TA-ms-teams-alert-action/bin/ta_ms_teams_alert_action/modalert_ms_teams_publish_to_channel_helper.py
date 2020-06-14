@@ -125,6 +125,14 @@ def process_event(helper, *args, **kwargs):
                          "cannot continue. Define a default URL in global addon configuration, or for this alert.")
         return False
 
+    # SSL verification (defaults to true)
+    default_ms_teams_ssl_verification = int(helper.get_global_setting("default_ms_teams_ssl_verification"))
+    ssl_certificate_validation = True
+    helper.log_debug("default_ms_teams_ssl_verification={}".format(default_ms_teams_ssl_verification))
+    if default_ms_teams_ssl_verification == 0:
+        ssl_certificate_validation = False
+    helper.log_debug("ssl_certificate_validation={}".format(ssl_certificate_validation))
+
     # enforce https
     if 'https://' not in active_ms_teams_url:
         active_ms_teams_url = 'https://' + active_ms_teams_url
@@ -188,6 +196,14 @@ def process_event(helper, *args, **kwargs):
     # data facts
     data_json_facts = '\"facts\": [\n'
 
+    # Fields ordering in the message publication, defaults to alphabetical ordering
+    alert_ms_teams_fields_order = helper.get_param("alert_ms_teams_fields_order")
+    alert_ms_teams_fields_order_by_alpha = True
+    helper.log_debug("alert_ms_teams_fields_order={}".format(alert_ms_teams_fields_order))
+    if alert_ms_teams_fields_order in "order_by_list":
+        alert_ms_teams_fields_order_by_alpha = False
+    helper.log_debug("alert_ms_teams_fields_order_by_alpha={}".format(alert_ms_teams_fields_order_by_alpha))
+
     # Iterate over the results to extract key values from the field list provided in input
     alert_ms_teams_fields_list = helper.get_param("alert_ms_teams_fields_list")
     helper.log_debug("alert_ms_teams_fields_list={}".format(alert_ms_teams_fields_list))
@@ -214,14 +230,19 @@ def process_event(helper, *args, **kwargs):
                     else:
                         keys_dict_str = '"' + checkstr(key) + '": ' + '"' + checkstr(value) + '"'
                     keys_count += 1
+            helper.log_debug("keys_dict_str={}".format(keys_dict_str))
 
             # Convert to a proper dict
             keys_dict_str = '{' + keys_dict_str + '}'
-            helper.log_debug("keys_dict_str={}".format(keys_dict_str))
             keys_dict = json.loads(keys_dict_str)
+            helper.log_debug("Before processing ordering, keys_dict_str={}".format(keys_dict_str))
 
-            # Order alphabetically by key
-            keys_ordered = OrderedDict(sorted(keys_dict.items(), key=lambda t: t[0]))
+            # Ordering fields
+            if alert_ms_teams_fields_order_by_alpha:
+                keys_ordered = OrderedDict(sorted(keys_dict.items(), key=lambda t: t[0]))
+            else:
+                keys_ordered = OrderedDict(sorted(keys_dict.items(), key=lambda pair: alert_ms_teams_fields_list.index(pair[0])))
+            helper.log_debug("After processing ordering as instructed, keys_ordered={}".format(keys_ordered))
 
             for key, value in keys_ordered.items():
                 if key in alert_ms_teams_fields_list:
@@ -398,10 +419,10 @@ def process_event(helper, *args, **kwargs):
             }
 
             # Try http post, catch exceptions and incorrect http return codes
-            # Splunk Cloud vetting note, verify SSL is required for vetting purposes
+            # Splunk Cloud vetting note, verify SSL is required for vetting purposes and enabled by default
             try:
                 response = helper.send_http_request(active_ms_teams_url, "POST", parameters=None, payload=data_json,
-                                                    headers=headers, cookies=None, verify=True,
+                                                    headers=headers, cookies=None, verify=ssl_certificate_validation,
                                                     cert=None, timeout=120, use_proxy=opt_use_proxy)
                 # No http exception, but http post was not successful
                 if response.status_code not in (200, 201, 204):

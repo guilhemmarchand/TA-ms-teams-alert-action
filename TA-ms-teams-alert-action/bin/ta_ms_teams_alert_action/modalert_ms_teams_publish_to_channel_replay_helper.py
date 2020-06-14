@@ -120,6 +120,14 @@ def process_event(helper, *args, **kwargs):
         opt_use_proxy = False
         helper.log_debug("use_proxy set to False")
 
+    # SSL verification (defaults to true)
+    default_ms_teams_ssl_verification = int(helper.get_global_setting("default_ms_teams_ssl_verification"))
+    ssl_certificate_validation = True
+    helper.log_debug("default_ms_teams_ssl_verification={}".format(default_ms_teams_ssl_verification))
+    if default_ms_teams_ssl_verification == 0:
+        ssl_certificate_validation = False
+    helper.log_debug("ssl_certificate_validation={}".format(ssl_certificate_validation))
+
     # Retrieve parameters
     message_uuid = helper.get_param("message_uuid")
     helper.log_debug("message_uuid={}".format(message_uuid))
@@ -176,10 +184,10 @@ def process_event(helper, *args, **kwargs):
         helper.log_info('Microsoft Teams creation attempting for record with uuid=' + message_uuid)
 
         # Try http post, catch exceptions and incorrect http return codes
-        # Splunk Cloud vetting note, verify SSL is required for vetting purposes
+        # Splunk Cloud vetting note, verify SSL is required for vetting purposes and enabled by default
         try:
             response = helper.send_http_request(message_url, "POST", parameters=None, payload=message_data,
-                                                headers=headers, cookies=None, verify=True,
+                                                headers=headers, cookies=None, verify=ssl_certificate_validation,
                                                 cert=None, timeout=120, use_proxy=opt_use_proxy)
 
             # No http exception, but http post was not successful
