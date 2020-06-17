@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.0.15
+==============
+
+- Fix: regression introduced in version 1.0.13 with the addition parameter for SSL verification, if a deployment is upgraded from a previous version, the alert would fail until an admin enters the configuration UI and saves the configuration again
+
 Version 1.0.14
 ==============
 

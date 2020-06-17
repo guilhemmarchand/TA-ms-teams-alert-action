@@ -126,7 +126,14 @@ def process_event(helper, *args, **kwargs):
         return False
 
     # SSL verification (defaults to true)
-    default_ms_teams_ssl_verification = int(helper.get_global_setting("default_ms_teams_ssl_verification"))
+    # Version 1.0.15 notes: This param option was added in version 1.0.14, but customers upgrading to prior version
+    # would get failing action until a new configuration save is applied
+    # To avoid this, an addition verification step is performed
+    default_ms_teams_ssl_verification = helper.get_global_setting("default_ms_teams_ssl_verification")
+    if default_ms_teams_ssl_verification is not None:
+        default_ms_teams_ssl_verification = int(default_ms_teams_ssl_verification)
+    else:
+        default_ms_teams_ssl_verification = 1
     ssl_certificate_validation = True
     helper.log_debug("default_ms_teams_ssl_verification={}".format(default_ms_teams_ssl_verification))
     if default_ms_teams_ssl_verification == 0:
