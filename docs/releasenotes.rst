@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.0.16
+==============
+
+- Fix: Splunk Cloud vetting failure due to session token available in debug mode
+
 Version 1.0.15
 ==============
 
