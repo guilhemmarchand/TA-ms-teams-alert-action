@@ -99,7 +99,6 @@ def process_event(helper, *args, **kwargs):
 
     # Retrieve the session_key
     session_key = helper.session_key
-    helper.log_debug("session_key={}".format(session_key))
 
     # Get splunkd port
     entity = splunk.entity.getEntity('/server', 'settings', namespace='TA-ms-teams-alert-action',
