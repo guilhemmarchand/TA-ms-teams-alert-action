@@ -1,6 +1,12 @@
 Release notes
 #############
 
+Version 1.0.17
+==============
+
+- Fix: Issue #26 - ensure aob configuration replicates in shc environment #26
+- Change: For Splunk Cloud vetting purposes, ensure https check verifies the URI starts by https rather than contains https
+
 Version 1.0.16
 ==============
 
