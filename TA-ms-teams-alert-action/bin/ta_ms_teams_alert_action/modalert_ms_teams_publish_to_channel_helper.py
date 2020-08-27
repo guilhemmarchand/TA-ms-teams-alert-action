@@ -139,10 +139,10 @@ def process_event(helper, *args, **kwargs):
         ssl_certificate_validation = False
     helper.log_debug("ssl_certificate_validation={}".format(ssl_certificate_validation))
 
-    # enforce https
-    if 'https://' not in active_ms_teams_url:
+    # For Splunk Cloud vetting, the URL must start with https://
+    if not active_ms_teams_url.startswith("https://"):
         active_ms_teams_url = 'https://' + active_ms_teams_url
-        helper.log_debug("active_ms_teams_url={}".format(active_ms_teams_url))
+    helper.log_debug("active_ms_teams_url={}".format(active_ms_teams_url))
 
     # get proxy configuration
     proxy_config = helper.get_proxy()
@@ -317,7 +317,7 @@ def process_event(helper, *args, **kwargs):
                     (alert_ms_teams_potential_action_url and alert_ms_teams_potential_action_url is not None)):
 
                 # https is enforced for certification compliance, action has to target https
-                if 'https://' not in alert_ms_teams_potential_action_url:
+                if not alert_ms_teams_potential_action_url.startswith("https://"):
                     helper.log_warn("alert_ms_teams_potential_action_url={}".
                                     format(alert_ms_teams_potential_action_url))
                     helper.log_warn("the potential action URL configured does not "
@@ -332,7 +332,7 @@ def process_event(helper, *args, **kwargs):
                     (alert_ms_teams_potential_action_url2 and alert_ms_teams_potential_action_url2 is not None)):
 
                 # https is enforced for certification compliance, action has to target https
-                if 'https://' not in alert_ms_teams_potential_action_url2:
+                if not alert_ms_teams_potential_action_url2.startswith("https://"):
                     helper.log_warn("alert_ms_teams_potential_action_url2={}".
                                     format(alert_ms_teams_potential_action_url2))
                     helper.log_warn(
@@ -348,7 +348,7 @@ def process_event(helper, *args, **kwargs):
                      alert_ms_teams_potential_postaction_target) is not None):
 
                 # https is enforced for certification compliance, action has to target https
-                if 'https://' not in alert_ms_teams_potential_postaction_target:
+                if not alert_ms_teams_potential_postaction_target.startswith("https://"):
                     helper.log_warn("alert_ms_teams_potential_postaction_target={}".
                                     format(alert_ms_teams_potential_postaction_target))
                     helper.log_warn(

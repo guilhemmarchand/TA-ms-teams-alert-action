@@ -27,4 +27,11 @@ backups
 # spl
 *.spl
 
+# Mac OS X cached files
 .DS_Store
+
+# Visual Basic Code
+.vscode
+
+# appinspect reports
+appinspect_report*.html
