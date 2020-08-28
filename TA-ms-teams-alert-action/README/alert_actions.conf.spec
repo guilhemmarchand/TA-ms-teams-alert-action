@@ -7,6 +7,7 @@ param.alert_ms_teams_activity_title = <string> Message Activity Title. It's a re
 param.alert_ms_teams_fields_list = <string> Message fields list. It's a required parameter.
 param.alert_ms_teams_fields_order = <string> Message fields ordering. It's a required parameter.
 param.alert_ms_teams_image_link = <string> Override MS teams image link for publication.
+param.alert_ms_teams_theme_color = <string> Use a theme color for the publication.
 param.alert_ms_teams_potential_action_name = <string> Potential Action Name.
 param.alert_ms_teams_potential_action_url = <string> Potential Action URL.
 param.alert_ms_teams_potential_action_name2 = <string> Second Potential Action Name.
