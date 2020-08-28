@@ -63,6 +63,10 @@ This setting is required, and at least one field needs to be defined.
 
 This defines the icon link to be used for the message publication, and will override any global setting that has been set.
 
+- **Theme color**
+
+Specifies a custom brand color for the card in hexadecimal code format. (optional, defaults to 0076D7)
+
 - **Potential Action Name** and **Potential Action URL**
 
 These two items define the action link button and target that can automatically be added when the message is published in Microsoft Teams.

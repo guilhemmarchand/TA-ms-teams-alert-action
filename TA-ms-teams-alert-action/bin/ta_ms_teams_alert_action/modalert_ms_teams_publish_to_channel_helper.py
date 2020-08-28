@@ -184,9 +184,18 @@ def process_event(helper, *args, **kwargs):
         helper.log_debug(
             "alert_ms_teams_activity_title={}".format(alert_ms_teams_activity_title))
 
+    # Theme color
+    alert_ms_teams_theme_color = helper.get_param("alert_ms_teams_theme_color")
+    if alert_ms_teams_theme_color is None:
+        alert_ms_teams_theme_color = "0076D7"
+        helper.log_debug("Theme color is not defined, reverted to default")
+    else:
+        helper.log_debug(
+            "alert_ms_teams_theme_color={}".format(alert_ms_teams_theme_color))
+
     # Start building the json object
     data_json = '{\n' + '\"@type\": \"MessageCard\",\n' + '\"@context\": \"http://schema.org/extensions\",\n' + \
-                '\"themeColor\": \"0076D7\",\n'
+                '\"themeColor\": \"' + alert_ms_teams_theme_color + '\",\n'
 
     # Add the message title
     data_json = data_json + '\n' + '\"summary\": \"' + alert_ms_teams_activity_title + '\",\n'

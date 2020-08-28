@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.0.18
+==============
+
+- Feature: Issue #28 - Theme Color as configurable option #28
+
 Version 1.0.17
 ==============
 
