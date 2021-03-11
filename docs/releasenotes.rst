@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.0.19
+==============
+
+- Change - Issue #35 - Splunk Python SDK upgrade to 1.6.15
+
 Version 1.0.18
 ==============
 
