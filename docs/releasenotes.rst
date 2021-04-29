@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.0.20
+==============
+
+- Change - Issue #37 - Add help-link class, open in a new window, and external icon
+
 Version 1.0.19
 ==============
 
