@@ -1,6 +1,12 @@
 Release notes
 #############
 
+Version 1.1.0
+=============
+
+- Enhancement - Migration from AoB framework to splunk-ucc-generator
+- Change - support is dropped for Python2 / Splunk 7.x and priors
+
 Version 1.0.20
 ==============
 
