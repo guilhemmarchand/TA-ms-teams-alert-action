@@ -1,0 +1,307 @@
+<form stylesheet="table.css" script="table.js" theme="dark" hideEdit="true">
+    <label>Overview - Microsoft Teams messages publication</label>
+    <fieldset submitButton="false">
+        <input type="time" token="timerange" searchWhenChanged="true">
+            <label></label>
+            <default>
+                <earliest>-24h@h</earliest>
+                <latest>now</latest>
+            </default>
+        </input>
+    </fieldset>
+    <row>
+        <panel>
+            <single>
+                <search>
+                    <query>(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_modalert.log" OR source="*ms_teams_publish_to_channel_replay_modalert.log")
+| transaction pid startswith="Alert action Microsoft Teams publish to channel started"
+| eval transaction_status=if(match(_raw, "Microsoft Teams message successfully created"), "success", "failure") | where transaction_status="success"
+| stats count</query>
+                    <earliest>$timerange.earliest$</earliest>
+                    <latest>$timerange.latest$</latest>
+                    <sampleRatio>1</sampleRatio>
+                </search>
+                <option name="colorBy">value</option>
+                <option name="colorMode">block</option>
+                <option name="drilldown">none</option>
+                <option name="numberPrecision">0</option>
+                <option name="rangeColors">["0x779ecb","0x779ecb"]</option>
+                <option name="rangeValues">[0]</option>
+                <option name="refresh.display">progressbar</option>
+                <option name="showSparkline">1</option>
+                <option name="showTrendIndicator">1</option>
+                <option name="trellis.enabled">0</option>
+                <option name="trellis.scales.shared">1</option>
+                <option name="trellis.size">medium</option>
+                <option name="trendColorInterpretation">standard</option>
+                <option name="trendDisplayMode">absolute</option>
+                <option name="underLabel">MESSAGES PUBLICATION SUCCESSES</option>
+                <option name="unitPosition">after</option>
+                <option name="useColors">1</option>
+                <option name="useThousandSeparators">1</option>
+            </single>
+        </panel>
+        <panel>
+            <single>
+                <search>
+                    <query>(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_modalert.log")
+| transaction pid startswith="Alert action Microsoft Teams publish to channel started"
+| eval transaction_status=if(match(_raw, "Microsoft Teams message successfully created"), "success", "failure") | where transaction_status="failure"
+| stats count</query>
+                    <earliest>$timerange.earliest$</earliest>
+                    <latest>$timerange.latest$</latest>
+                    <sampleRatio>1</sampleRatio>
+                </search>
+                <option name="colorBy">value</option>
+                <option name="colorMode">block</option>
+                <option name="drilldown">none</option>
+                <option name="numberPrecision">0</option>
+                <option name="rangeColors">["0x779ecb","0xffb347"]</option>
+                <option name="rangeValues">[0]</option>
+                <option name="refresh.display">progressbar</option>
+                <option name="showSparkline">1</option>
+                <option name="showTrendIndicator">1</option>
+                <option name="trellis.enabled">0</option>
+                <option name="trellis.scales.shared">1</option>
+                <option name="trellis.size">medium</option>
+                <option name="trendColorInterpretation">standard</option>
+                <option name="trendDisplayMode">absolute</option>
+                <option name="underLabel">MESSAGES PUBLICATION TEMPORARY FAILURES</option>
+                <option name="unitPosition">after</option>
+                <option name="useColors">1</option>
+                <option name="useThousandSeparators">1</option>
+            </single>
+        </panel>
+        <panel>
+            <single>
+                <search>
+                    <query>| inputlookup ms_teams_failures_replay | eval uuid=_key | stats dc(uuid) as count</query>
+                    <earliest>-15m</earliest>
+                    <latest>now</latest>
+                    <sampleRatio>1</sampleRatio>
+                </search>
+                <option name="colorBy">value</option>
+                <option name="colorMode">block</option>
+                <option name="drilldown">all</option>
+                <option name="numberPrecision">0</option>
+                <option name="rangeColors">["0x779ecb","0xffb347"]</option>
+                <option name="rangeValues">[0]</option>
+                <option name="refresh.display">progressbar</option>
+                <option name="showSparkline">1</option>
+                <option name="showTrendIndicator">1</option>
+                <option name="trellis.enabled">0</option>
+                <option name="trellis.scales.shared">1</option>
+                <option name="trellis.size">medium</option>
+                <option name="trendColorInterpretation">standard</option>
+                <option name="trendDisplayMode">absolute</option>
+                <option name="underLabel">MESSAGES CURRENTLY IN THE REPLAY KVSTORE</option>
+                <option name="unitPosition">after</option>
+                <option name="useColors">1</option>
+                <option name="useThousandSeparators">1</option>
+            </single>
+        </panel>
+        <panel>
+            <single>
+                <search>
+                    <query>(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_replay_modalert.log") "Microsoft Teams message creation has failed"
+| stats count</query>
+                    <earliest>$timerange.earliest$</earliest>
+                    <latest>$timerange.latest$</latest>
+                    <sampleRatio>1</sampleRatio>
+                </search>
+                <option name="colorBy">value</option>
+                <option name="colorMode">block</option>
+                <option name="drilldown">all</option>
+                <option name="numberPrecision">0</option>
+                <option name="rangeColors">["0x779ecb","0xffb347"]</option>
+                <option name="rangeValues">[0]</option>
+                <option name="refresh.display">progressbar</option>
+                <option name="showSparkline">1</option>
+                <option name="showTrendIndicator">1</option>
+                <option name="trellis.enabled">0</option>
+                <option name="trellis.scales.shared">1</option>
+                <option name="trellis.size">medium</option>
+                <option name="trendColorInterpretation">standard</option>
+                <option name="trendDisplayMode">absolute</option>
+                <option name="underLabel">MESSAGES REPLAY STORE TEMPORARY FAILURES</option>
+                <option name="unitPosition">after</option>
+                <option name="useColors">1</option>
+                <option name="useThousandSeparators">1</option>
+            </single>
+        </panel>
+        <panel>
+            <single>
+                <search>
+                    <query>(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_replay_modalert.log") "permanent failure!"
+| stats count</query>
+                    <earliest>$timerange.earliest$</earliest>
+                    <latest>$timerange.latest$</latest>
+                    <sampleRatio>1</sampleRatio>
+                </search>
+                <option name="colorBy">value</option>
+                <option name="colorMode">block</option>
+                <option name="drilldown">all</option>
+                <option name="numberPrecision">0</option>
+                <option name="rangeColors">["0x779ecb","0xff6961"]</option>
+                <option name="rangeValues">[0]</option>
+                <option name="refresh.display">progressbar</option>
+                <option name="showSparkline">1</option>
+                <option name="showTrendIndicator">1</option>
+                <option name="trellis.enabled">0</option>
+                <option name="trellis.scales.shared">1</option>
+                <option name="trellis.size">medium</option>
+                <option name="trendColorInterpretation">standard</option>
+                <option name="trendDisplayMode">absolute</option>
+                <option name="underLabel">MESSAGES REPLAY STORE PERMANENT FAILURES</option>
+                <option name="unitPosition">after</option>
+                <option name="useColors">1</option>
+                <option name="useThousandSeparators">1</option>
+            </single>
+        </panel>
+    </row>
+    <row>
+        <panel>
+            <html>
+
+                <style>
+                    /* Fix link input object align */
+                    .input-linklist {
+                    display: inline !important;
+                    }
+
+                    /* Fix link input object align for Splunk 6.5 */
+                    .input-link {
+                    display: inline !important;
+                    }
+
+                    /* Increase the default max-width for links */
+                    .btn-pill {
+                    max-width: 600px !important;
+                    }
+                </style>
+
+                <h1>Microsoft Teams channel messages creation workflow:</h1>
+
+                <lu>
+                    <li>
+                        When a channel message creation is requested, the modular alert attempts an http POST to the channel Webhook URL, and logs its activity in <a target="_blank" href="search?q=%28index%3D%22_internal%22%20OR%20index%3D%22cim_modactions%22%29%20%28source%3D%22%2Ams_teams_publish_to_channel_modalert.log%22%29">(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_modalert.log")</a>
+                    </li>
+
+                    <li>
+                        If the channel message creation is successful, the keyword <b>"Microsoft Teams message successfully created"</b> is logged
+                    </li>
+
+                    <li>
+                        Should the channel message creation fail for any reason, the keyword <b>"Microsoft Teams message creation has failed"</b> is logged, and the message data is stored automatically in the replay KVstore <a target="_blank" href="search?q=%7C%20inputlookup%20ms_teams_failures_replay%20%7C%20eval%20uuid%3D_key">(| inputlookup ms_teams_failures_replay | eval uuid=_key)</a>
+                    </li>
+
+                    <li>
+                        This is a temporary failure as the replay backend handles automatically failed messages stored in the KVstore, and attempts again the creation via the scheduled alert <b>"MS Teams - Resilient store Tracker"</b>
+                    </li>
+
+                    <li>
+                        The replay issue backend logs its activity in <a target="_blank" href="search?q=%28index%3D%22_internal%22%20OR%20index%3D%22cim_modactions%22%29%20%28source%3D%22%2Ams_teams_publish_to_channel_replay_modalert.log%22%29">(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_replay_modalert.log")</a>
+                    </li>
+
+                    <li>
+                        Messages stored in the replay KVstore are attempted when the replay alert triggers (every 5 minutes), a temporary failed message will be attempted during <b>a period of 3 days</b>
+                    </li>
+
+                    <li>
+                        Once the message referenced by a uuid has reached the 3 days period, it is tagged as a permanent failure, and the alert <b>"MS Teams - detection of permanent issue creation failure"</b> triggers warning about its permanent failure
+                    </li>
+
+                    <li>
+                        A message in a permanent failure state will not be attempted anymore, <b>7 days after its initial creation</b>, the message is finally tagged for removal and will be purged automatically from the replay KVstore
+                    </li>
+
+                    <li>
+                        As such, a channel message issue that initially failed to be created is <b>automatically retried during 3 days, and definitively purged after 7 days</b>
+                    </li>
+
+                </lu>
+
+            </html>
+        </panel>
+    </row>
+    <row>
+        <panel>
+            <chart>
+                <search>
+                    <query>(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_modalert.log" OR source="*ms_teams_publish_to_channel_replay_modalert.log")
+| transaction pid startswith="Alert action Microsoft Teams publish to channel started."
+| eval transaction_status=if(match(_raw, "Microsoft Teams message successfully created"), "success", "temporary_failure")
+| timechart minspan=5m bins=1000 count by transaction_status
+| append [ search (index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_replay_modalert.log") "permanent failure!"
+| timechart minspan=5m bins=1000 count as permanent_failure ]</query>
+                    <earliest>$timerange.earliest$</earliest>
+                    <latest>$timerange.latest$</latest>
+                </search>
+                <option name="charting.axisTitleX.visibility">collapsed</option>
+                <option name="charting.axisTitleY.text">status</option>
+                <option name="charting.chart">column</option>
+                <option name="charting.drilldown">none</option>
+                <option name="refresh.display">progressbar</option>
+                <option name="charting.chart.stackMode">stacked</option>
+                <option name="height">200</option>
+                <option name="charting.fieldColors">{"success": 0x53a051, "temporary_failure": 0xf1813f, "permanent_failure": 0xdc4e41}</option>
+            </chart>
+        </panel>
+    </row>
+    <row>
+        <panel>
+            <input type="dropdown" token="status" searchWhenChanged="true">
+                <label>Status:</label>
+                <default>ANY</default>
+                <prefix>transaction_status="</prefix>
+                <suffix>"</suffix>
+                <choice value="*">ANY</choice>
+                <choice value="success">success</choice>
+                <choice value="failure">failure</choice>
+                <choice value="info">info</choice>
+            </input>
+            <input type="link" token="linkinput1">
+                <label></label>
+                <choice value="link1">First call activity</choice>
+                <choice value="link2">Resilient store activity</choice>
+                <default>link1</default>
+                <change>
+                    <condition value="link1">
+                        <set token="link1">true</set>
+                        <unset token="link2"></unset>
+                    </condition>
+                    <condition value="link2">
+                        <set token="link2">true</set>
+                        <unset token="link1"></unset>
+                    </condition>
+                </change>
+            </input>
+            <table depends="$link1$">
+                <search depends="$link1$">
+                    <query>(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_modalert.log")
+| transaction pid startswith="Alert action Microsoft Teams publish to channel started."
+| eval transaction_status=if(match(_raw, "Microsoft Teams message successfully created"), "success", "failure")
+| stats first(transaction_status) as transaction_status, first(app) as app, first(action_mode) as action_mode, values(sid) as sid, first(search_name) as search_name, first(user) as user, latest(_raw) as _raw by _time | sort - _time
+| eval icon="icon|" + if(transaction_status="success", "ico_good ico_small|icon-check|MS Teams publication successful", "ico_error ico_small|icon-close|MS Teams publication has failed")
+| search $status$
+| fields _time icon app action_mode sid search_name user _raw | rename icon as status</query>
+                    <earliest>$timerange.earliest$</earliest>
+                    <latest>$timerange.latest$</latest>
+                </search>
+            </table>
+            <table depends="$link2$">
+                <search depends="$link2$">
+                    <query>(index="_internal" OR index="cim_modactions") (source="*ms_teams_publish_to_channel_replay_modalert.log")
+| transaction pid startswith="Alert action Microsoft Teams replay publish to channel started."
+| eval transaction_status=if(match(_raw, "Microsoft Teams message successfully created"), "success", "failure")
+| stats first(transaction_status) as transaction_status, first(app) as app, first(action_mode) as action_mode, values(sid) as sid, first(search_name) as search_name, first(user) as user, latest(_raw) as _raw by _time | sort - _time
+| eval icon="icon|" + if(transaction_status="success", "ico_good ico_small|icon-check|MS Teams publication successful", "ico_error ico_small|icon-close|MS Teams publication has failed")
+| search $status$
+| fields _time icon app action_mode sid search_name user _raw | rename icon as status</query>
+                    <earliest>$timerange.earliest$</earliest>
+                    <latest>$timerange.latest$</latest>
+                </search>
+            </table>
+        </panel>
+    </row>
+</form>

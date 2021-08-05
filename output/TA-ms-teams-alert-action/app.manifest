@@ -1,0 +1,54 @@
+{
+    "dependencies": null,
+    "incompatibleApps": null,
+    "info": {
+        "author": [
+            {
+                "company": "OCTAMIS",
+                "email": "guilhem.marchnd@gmail.com",
+                "name": "Guilhem Marchand"
+            }
+        ],
+        "classification": {
+            "categories": [],
+            "developmentStatus": null,
+            "intendedAudience": null
+        },
+        "commonInformationModels": null,
+        "description": "This addon allows publishing messages to Microsoft Teams channels with markdown formatting.",
+        "id": {
+            "group": null,
+            "name": "TA-ms-teams-alert-action",
+            "version": "1.1.0"
+        },
+        "license": {
+            "name": null,
+            "text": null,
+            "uri": null
+        },
+        "privacyPolicy": {
+            "name": null,
+            "text": null,
+            "uri": null
+        },
+        "releaseDate": null,
+        "releaseNotes": {
+            "name": null,
+            "text": "./README.txt",
+            "uri": "https://ta-ms-teams-alert-action.readthedocs.io/en/latest/releasenotes.html"
+        },
+        "title": "MS Teams alert action"
+    },
+    "inputGroups": null,
+    "platformRequirements": null,
+    "schemaVersion": "2.0.0",
+    "supportedDeployments": [
+        "_standalone",
+        "_distributed",
+        "_search_head_clustering"
+    ],
+    "targetWorkloads": [
+        "_search_heads"
+    ],
+    "tasks": null
+}
