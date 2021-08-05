@@ -114,6 +114,16 @@ fields_additional_parameters = [
         )
     ), 
     field.RestField(
+        'default_ms_teams_check_url_compliancy',
+        required=False,
+        encrypted=False,
+        default='.*',
+        validator=validator.String(
+            max_len=8192, 
+            min_len=0, 
+        )
+    ), 
+    field.RestField(
         'default_ms_teams_ssl_verification',
         required=False,
         encrypted=False,

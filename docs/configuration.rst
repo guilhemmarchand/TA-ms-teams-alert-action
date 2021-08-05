@@ -11,12 +11,16 @@ Global configuration
 .. image:: img/config1.png
    :alt: config1.png
    :align: center
+   :width: 1000px
+   :class: with-border
 
-*Addon settings:*
+*Add-on settings:*
 
 .. image:: img/config2.png
    :alt: config2.png
    :align: center
+   :width: 1000px
+   :class: with-border
 
 - **Default MS team channel:**
 
@@ -34,6 +38,16 @@ In a similar fashion, this defines the icon link to be used by default when publ
 
 This setting is optional and  and can be let unset in the global app configuration.
 
+- **URL regex compliancy checker:**
+
+To avoid allowing the target URL to be set to a free value, and prevent data exflitration, you use this option to define a valid regular expression that will be applied automatically when the alert action triggers.
+
+If the regular expression does not match the target URL, the alert action will be refused and the Python backend will not proceed to the Webhook call.
+
+- **SSL certificate validation:**
+
+If the option is checked, the Python backend will require the SSL certificate to be a valid certificate.
+
 Per alert configuration
 =======================
 
@@ -42,6 +56,7 @@ Per alert configuration
 .. image:: img/config3.png
    :alt: config3.png
    :align: center
+   :class: with-border
 
 - **Override default Webhook URL**
 
@@ -80,6 +95,7 @@ For this option to be activated, both of these items need to be configured, note
 .. image:: img/message_example.png
    :alt: message_example.png
    :align: center
+   :class: with-border
 
 - **HttpPOST Action:**
 
@@ -97,6 +113,7 @@ Status dashboard
 .. image:: img/overview.png
    :alt: overview.png
    :align: center
+   :class: with-border
 
 Should there be any failures in publishing messages, the related information and logs are made available easily.
 
@@ -110,6 +127,7 @@ Out the box alert for publishing failures detection
 .. image:: img/alert.png
    :alt: alert.png
    :align: center
+   :class: with-border
 
 Failures for publication can have different causes like network issues, typo or misconfiguration, as always the truth will be in the logs.
 

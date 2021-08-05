@@ -22,6 +22,7 @@ def process_event(helper, *args, **kwargs):
     from collections import OrderedDict
     import time
     import uuid
+    import re
 
     import splunk.entity
     import splunk.Intersplunk
@@ -55,6 +56,17 @@ def process_event(helper, *args, **kwargs):
         helper.log_error("No Webhook URL have been configured nor for this alert, and neither globally, "
                          "cannot continue. Define a default URL in global addon configuration, or for this alert.")
         return False
+
+    # Verify the URL target compliancy - if the URL does not comply, the call will not be proceeded
+    default_ms_teams_check_url_compliancy = helper.get_global_setting("default_ms_teams_check_url_compliancy")    
+    if default_ms_teams_check_url_compliancy in ("null", "None", None):
+        default_ms_teams_check_url_compliancy = ".*"
+    helper.log_debug("default_ms_teams_check_url_compliancy={}".format(default_ms_teams_check_url_compliancy))
+
+    if not re.match(str(r"%s" % default_ms_teams_check_url_compliancy), active_ms_teams_url):
+        helper.log_error("The provided URL " + str(active_ms_teams_url) + " does not comply with the URL compliancy" \
+            " check setting defined in the global configuration, therefore the operation cannot be proceeded.")
+        return 1
 
     # SSL verification (defaults to true)
     # Version 1.0.15 notes: This param option was added in version 1.0.14, but customers upgrading to prior version
