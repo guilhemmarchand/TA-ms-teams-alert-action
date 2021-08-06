@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.1.1
+=============
+
+- Fix - Upgrade of Splunk ucc-gen to release 5.5.9 to fix an issue with the notification in configuration UI when an Add-on has no account section
+
 Version 1.1.0
 =============
 
