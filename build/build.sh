@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#set -x
+set -x
 
 # for Mac OS X
 export COPYFILE_DISABLE=true
@@ -17,6 +17,9 @@ ucc-gen --ta-version "$ta_version"
 cd "${OUTDIR}"
 find . -name "*.pyc" -type f -exec rm -f {} \;
 rm -f *.tgz
+if [ -f ${app}/metadata/local.meta ]; then
+  rm -f ${app}/metadata/local.meta
+fi
 tar -czf ${app}_${version}.tgz ${app}
 echo "Wrote: ${app}_${version}.tgz"
 

@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.1.2
+=============
+
+- Fix - unexpected local.meta was delivered within the tgz release archive
+
 Version 1.1.1
 =============
 
