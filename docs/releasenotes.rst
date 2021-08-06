@@ -1,6 +1,15 @@
 Release notes
 #############
 
+Version 1.1.0
+=============
+
+**New major release: Migration from AoB framework to splunk-ucc-generator:**
+
+- Enhancement - the migration to splunk-ucc-generator provides a better and modern framework for Add-ons
+- Change - support is dropped for Splunk 7.x, version 1.1.x only supports Splunk 8.x and Python3
+- Change - JQuery migration for the Overview dashboard
+
 Version 1.0.20
 ==============
 

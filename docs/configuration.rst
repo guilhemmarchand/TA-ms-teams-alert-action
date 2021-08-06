@@ -11,14 +11,20 @@ Global configuration
 .. image:: img/config1.png
    :alt: config1.png
    :align: center
+   :width: 1000px
+   :class: with-border
 
-*Addon settings:*
+*Add-on settings:*
 
 .. image:: img/config2.png
    :alt: config2.png
    :align: center
+   :width: 1000px
+   :class: with-border
 
-- **Default MS team channel:**
+
+Default MS team channel
+^^^^^^^^^^^^^^^^^^^^^^^
 
 This defines a default Webhook URL to be used by default for the publication of messages.
 
@@ -28,11 +34,36 @@ Finally, the default channel Webhook URL can be overridden on a per alert basis,
 
 This setting is optional and can be let unset in the global app configuration.
 
-- **Default MS teams image link:**
+Default MS teams image link
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 In a similar fashion, this defines the icon link to be used by default when publishing to channels, this setting can be overridden on a per alert basis as well.
 
 This setting is optional and  and can be let unset in the global app configuration.
+
+URL regex compliancy checker
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To avoid allowing the target URL to be set to a free value, and prevent data exflitration, you use this option to define a valid regular expression that will be applied automatically when the alert action triggers.
+
+If the regular expression does not match the target URL, the alert action will be refused and the Python backend will not proceed to the Webhook call.
+
+**For instance, you can include a simple litteral expression to match your tenant ID:**
+
+*https://mydomain.ic365.webhook.office.com/webhookb2/*
+
+If an alert is attempting to publish a message that does not comply with the regex check, the Add-on logs will return an error and the publication will not be executed:
+
+.. image:: img/regex_checker.png
+   :alt: regex_checker.png
+   :align: center
+   :width: 1400px
+   :class: with-border
+
+SSL certificate validation
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If the option is checked, the Python backend will require the SSL certificate to be a valid certificate.
 
 Per alert configuration
 =======================
@@ -42,46 +73,55 @@ Per alert configuration
 .. image:: img/config3.png
    :alt: config3.png
    :align: center
+   :class: with-border
 
-- **Override default Webhook URL**
+Override default Webhook URL
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This defines the Webhook URL for the message publication, and will override any existing global configuration.
 
 This item is optional only if the global equivalent has been set (obvious), similarly to global https is automatically enforced.
 
-- **Message Activity Title**
+Message Activity Title
+^^^^^^^^^^^^^^^^^^^^^^
 
 This defines the main title of the message to be published, this setting is required.
 
-- **Message fields list**
+Message fields list
+^^^^^^^^^^^^^^^^^^^
 
 This defines a comma separated list of fields which result from the alert, these fields will be automatically extracted and formatted to be part of the published message.
 
 This setting is required, and at least one field needs to be defined.
 
-- **Override MS teams image link for publication**
+Override MS teams image link for publication
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This defines the icon link to be used for the message publication, and will override any global setting that has been set.
 
-- **Theme color**
+Theme color
+^^^^^^^^^^^
 
 Specifies a custom brand color for the card in hexadecimal code format. (optional, defaults to 0076D7)
 
-- **Potential Action Name** and **Potential Action URL**
+Potential Action Name and URL
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 These two items define the action link button and target that can automatically be added when the message is published in Microsoft Teams.
 
 For this option to be activated, both of these items need to be configured, note that the URL can accept dynamic input fields resulting from the search.
 
-**A second OopenURI action can be added in addition.**
+*A second OopenURI action can be added.*
 
 **Message example:**
 
 .. image:: img/message_example.png
    :alt: message_example.png
    :align: center
+   :class: with-border
 
-- **HttpPOST Action:**
+HttpPOST Action
+^^^^^^^^^^^^^^^
 
 You can add an HttpPOST action which users can use directly in Microsoft Teams, this is allows interacting with Splunk or an external system directly within the Teams interface.
 
@@ -97,6 +137,7 @@ Status dashboard
 .. image:: img/overview.png
    :alt: overview.png
    :align: center
+   :class: with-border
 
 Should there be any failures in publishing messages, the related information and logs are made available easily.
 
@@ -110,6 +151,7 @@ Out the box alert for publishing failures detection
 .. image:: img/alert.png
    :alt: alert.png
    :align: center
+   :class: with-border
 
 Failures for publication can have different causes like network issues, typo or misconfiguration, as always the truth will be in the logs.
 

@@ -17,10 +17,20 @@ Welcome to the Splunk Microsoft Teams messages publication addon documentation
 .. image:: img/overview.png
    :alt: overview.png
    :align: center
+   :width: 1000px
+   :class: with-border
+
+.. image:: img/config2.png
+   :alt: config2.png
+   :align: center
+   :width: 1000px
+   :class: with-border
 
 .. image:: img/config3.png
    :alt: config3.png
    :align: center
+   :width: 600px
+   :class: with-border
 
 Overview:
 =========
