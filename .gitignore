@@ -41,5 +41,17 @@ appinspect_report*.html
 build/*.tgz
 build/release-sha256.txt
 
+# build
+build/*.tgz
+build/release-sha256.txt
+
+# output
+output/*
+!output/README.txt
+
+# Python pickle
+*.pickle
+
+
 # Python pickle
 *.pickle
