@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.1.3
+=============
+
+- Fix - Issue #40 - SHC replication fails, server.conf config missing in package
+
 Version 1.1.2
 =============
 
