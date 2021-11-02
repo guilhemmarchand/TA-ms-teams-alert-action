@@ -1,6 +1,11 @@
 Release notes
 #############
 
+Version 1.1.4
+=============
+
+- Fix - Issue #43 - Missing name in id stanza section was reported be causing Splunk Cloud automation internal issues
+
 Version 1.1.3
 =============
 
