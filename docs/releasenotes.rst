@@ -1,6 +1,16 @@
 Release notes
 #############
 
+Version 1.1.6
+=============
+
+- Update to latest libs (Python SDK, etc)
+
+Version 1.1.5
+=============
+
+- Update to latest libs (Python SDK, etc)
+
 Version 1.1.4
 =============
 

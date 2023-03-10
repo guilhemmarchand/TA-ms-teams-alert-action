@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+#set -x
 
 # for Mac OS X
 export COPYFILE_DISABLE=true
@@ -25,6 +25,6 @@ echo "Wrote: ${app}_${version}.tgz"
 
 sha256=$(sha256sum ${app}_${version}.tgz)
 echo "Wrote: ${sha256} in $OUTDIR"
-echo ${sha256} > release-sha256.txt
+echo ${sha256} >release-sha256.txt
 
 exit 0
