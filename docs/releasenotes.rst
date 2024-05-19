@@ -1,6 +1,17 @@
 Release notes
 #############
 
+Version 1.1.6
+=============
+
+- Splunk Cloud vetting issues - SSL verification is now mandatory to satisfy with Splunk Cloud requirements
+- Release refreshed
+
+Version 1.1.5
+=============
+
+- Release refreshed
+
 Version 1.1.4
 =============
 
