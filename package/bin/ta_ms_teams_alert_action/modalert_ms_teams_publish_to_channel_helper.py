@@ -569,7 +569,7 @@ def process_event(helper, *args, **kwargs):
                     use_proxy=opt_use_proxy,
                 )
                 # No http exception, but http post was not successful
-                if response.status_code not in (200, 201, 204):
+                if not (200 <= response.status_code < 300):
 
                     helper.log_error(
                         "Microsoft Teams publish to channel has failed!. "
@@ -613,7 +613,7 @@ def process_event(helper, *args, **kwargs):
                     response = requests.post(
                         record_url, headers=headers, data=record, verify=False
                     )
-                    if response.status_code not in (200, 201, 204):
+                    if not (200 <= response.status_code < 300):
                         helper.log_error(
                             "KVstore saving has failed!. url={}, data={}, HTTP Error={}, "
                             "content={}".format(
@@ -668,7 +668,7 @@ def process_event(helper, *args, **kwargs):
                 response = requests.post(
                     record_url, headers=headers, data=record, verify=False
                 )
-                if response.status_code not in (200, 201, 204):
+                if not (200 <= response.status_code < 300):
                     helper.log_error(
                         "KVstore saving has failed!. url={}, data={}, HTTP Error={}, "
                         "content={}".format(
