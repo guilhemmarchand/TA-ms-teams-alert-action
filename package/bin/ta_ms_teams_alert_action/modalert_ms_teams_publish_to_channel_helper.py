@@ -179,6 +179,39 @@ def process_event(helper, *args, **kwargs):
 
     # data facts
     data_json_facts = '"facts": [\n'
+    data_json_attachments = (
+        '"type": "exampleType",\n'
+        + '"attachments": [\n'
+        + "    {\n"
+        + '        "contentType": "application/vnd.microsoft.card.adaptive",\n'
+        + '        "content": {\n'
+        + '            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",\n'
+        + '            "type": "AdaptiveCard",\n'
+        + '            "version": "1.2",\n'
+        + '            "body": [\n'
+        + "                {\n"
+        + '                    "type": "TextBlock",\n'
+        + '                    "size": "Medium",\n'
+        + '                    "weight": "Bolder",\n'
+        + '                    "text": "'
+        + alert_ms_teams_activity_title
+        + '"\n'
+        + "                },\n"
+        + "                {\n"
+        + '                    "type": "TextBlock",\n'
+        + '                    "text": "",\n'
+        + '                    "wrap": true\n'
+        + "                },\n"
+        + "                {\n"
+        + '                    "type": "FactSet",\n'
+        + '                    "facts": [\n'
+    )
+
+    # Set to use new MS webhook
+    alert_ms_teams_new_webhook = helper.get_param("alert_ms_teams_new_webhook") == "1"
+    helper.log_info(
+        f"Use new MS workflow Webhook. Value is {alert_ms_teams_new_webhook}."
+    )
 
     # Fields ordering in the message publication, defaults to alphabetical ordering
     alert_ms_teams_fields_order = helper.get_param("alert_ms_teams_fields_order")
@@ -268,18 +301,32 @@ def process_event(helper, *args, **kwargs):
 
                     if count != 0:
                         data_json_facts = data_json_facts + ","
+                        data_json_attachments = data_json_attachments + ","
                     key = checkstr(key)
                     value = checkstr(value)
                     data_json_facts = data_json_facts + "{\n"
                     data_json_facts = data_json_facts + '"name": "' + key + '",\n'
                     data_json_facts = data_json_facts + '"value": "' + value + '"\n'
                     data_json_facts = data_json_facts + "}\n"
+                    # Add attachments new webhook
+                    data_json_attachments += "{\n"
+                    data_json_attachments += '"title": "' + key + ':",\n'
+                    data_json_attachments += '"value": "' + value + '"\n'
+                    data_json_attachments += "}\n"
                     count += 1
                     # helper.log_debug("count={}".format(count))
 
+            data_json_attachments += "                    ]\n"
+            data_json_attachments += "                }\n"
+            data_json_attachments += "            ]\n"
+            data_json_attachments += "        }\n"
+            data_json_attachments += "    }\n"
+            data_json_attachments += "]"
+
             data_json_facts = data_json_facts + "],"
 
-            data_json = data_json + data_json_facts
+            if not (alert_ms_teams_new_webhook):
+                data_json = data_json + data_json_facts
 
             # MS teams action, this is optional
 
@@ -360,6 +407,9 @@ def process_event(helper, *args, **kwargs):
 
             # terminate the sections pattern
             data_json = data_json + "\n" + '"markdown": false' + "\n" + "}]"
+
+            if alert_ms_teams_new_webhook:
+                data_json = data_json + ",\n" + data_json_attachments
 
             # Actions statuses
             has_action1 = False
@@ -569,7 +619,7 @@ def process_event(helper, *args, **kwargs):
                     use_proxy=opt_use_proxy,
                 )
                 # No http exception, but http post was not successful
-                if response.status_code not in (200, 201, 204):
+                if not (200 <= response.status_code < 300):
 
                     helper.log_error(
                         "Microsoft Teams publish to channel has failed!. "
@@ -613,7 +663,7 @@ def process_event(helper, *args, **kwargs):
                     response = requests.post(
                         record_url, headers=headers, data=record, verify=False
                     )
-                    if response.status_code not in (200, 201, 204):
+                    if not (200 <= response.status_code < 300):
                         helper.log_error(
                             "KVstore saving has failed!. url={}, data={}, HTTP Error={}, "
                             "content={}".format(
@@ -668,7 +718,7 @@ def process_event(helper, *args, **kwargs):
                 response = requests.post(
                     record_url, headers=headers, data=record, verify=False
                 )
-                if response.status_code not in (200, 201, 204):
+                if not (200 <= response.status_code < 300):
                     helper.log_error(
                         "KVstore saving has failed!. url={}, data={}, HTTP Error={}, "
                         "content={}".format(
