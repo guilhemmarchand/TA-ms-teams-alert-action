@@ -1,6 +1,22 @@
 Release notes
 #############
 
+Version 1.1.6
+=============
+
+- Splunk Cloud vetting issues - SSL verification is now mandatory to satisfy with Splunk Cloud requirements
+- Release refreshed
+
+Version 1.1.5
+=============
+
+- Release refreshed
+
+Version 1.1.4
+=============
+
+- Fix - Issue #43 - Missing name in id stanza section was reported be causing Splunk Cloud automation internal issues
+
 Version 1.1.3
 =============
 
