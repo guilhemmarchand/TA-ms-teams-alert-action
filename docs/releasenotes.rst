@@ -6,6 +6,7 @@ Version 1.1.7
 
 - Splunk UCC, SDK and other librairies refresh to very last versions
 - Switch http.status_code verification from an explicit list of 2* codes to allow any 2* code, this change is to allow a workaround using Power Automate Flow to allow the deprecation of message cards by Microsoft.
+- Thanks to khanhduy8, a simple check box allows converting the message card format into the new adaptive card format to keep the app compatible with new MS format
 
 Version 1.1.6
 =============
