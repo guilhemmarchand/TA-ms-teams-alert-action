@@ -380,9 +380,9 @@
     "meta": {
         "name": "TA-ms-teams-alert-action",
         "restRoot": "ta_ms_teams_alert_action",
-        "version": "1.1.6",
+        "version": "1.1.7",
         "displayName": "MS Teams alert action",
         "schemaVersion": "0.0.7",
-        "_uccVersion": "5.48.0"
+        "_uccVersion": "5.48.2"
     }
 }
