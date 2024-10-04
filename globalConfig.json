@@ -99,41 +99,7 @@
                     "title": "Proxy"
                 },
                 {
-                    "name": "logging",
-                    "entity": [
-                        {
-                            "type": "singleSelect",
-                            "label": "Log level",
-                            "options": {
-                                "disableSearch": true,
-                                "autoCompleteFields": [
-                                    {
-                                        "value": "DEBUG",
-                                        "label": "DEBUG"
-                                    },
-                                    {
-                                        "value": "INFO",
-                                        "label": "INFO"
-                                    },
-                                    {
-                                        "value": "WARNING",
-                                        "label": "WARNING"
-                                    },
-                                    {
-                                        "value": "ERROR",
-                                        "label": "ERROR"
-                                    },
-                                    {
-                                        "value": "CRITICAL",
-                                        "label": "CRITICAL"
-                                    }
-                                ]
-                            },
-                            "defaultValue": "INFO",
-                            "field": "loglevel"
-                        }
-                    ],
-                    "title": "Logging"
+                    "type": "loggingTab"
                 },
                 {
                     "name": "additional_parameters",
@@ -199,7 +165,7 @@
             "name": "ms_teams_publish_to_channel",
             "label": "MS teams publish to channel",
             "description": "Publish a message to a Microsoft Teams channel",
-            "activeResponse": {
+            "adaptiveResponse": {
                 "task": [
                     "Create",
                     "Update",
@@ -223,7 +189,8 @@
                     }
                 ],
                 "drilldownUri": "search?q=search%20index%3D_internal%20OR%20index%3Dcim_modaction%20sourcetype%3Dta:msteams:alert:log&earliest=0&latest=",
-                "sourcetype": "ta:msteams:alert:log"
+                "sourcetype": "ta:msteams:alert:log",
+                "supportsCloud": true
             },
             "entity": [
                 {
@@ -407,9 +374,9 @@
     "meta": {
         "name": "TA-ms-teams-alert-action",
         "restRoot": "ta_ms_teams_alert_action",
-        "version": "1.1.6",
+        "version": "1.1.7",
         "displayName": "MS Teams alert action",
-        "schemaVersion": "0.0.3",
-        "_uccVersion": "5.39.1"
+        "schemaVersion": "0.0.7",
+        "_uccVersion": "5.48.2"
     }
 }
