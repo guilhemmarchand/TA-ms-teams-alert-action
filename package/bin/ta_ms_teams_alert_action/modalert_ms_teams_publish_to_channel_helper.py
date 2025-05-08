@@ -180,7 +180,7 @@ def process_event(helper, *args, **kwargs):
     # data facts
     data_json_facts = '"facts": [\n'
     data_json_attachments = (
-        '"type": "exampleType",\n'
+        '"type": "message",\n'
         + '"attachments": [\n'
         + "    {\n"
         + '        "contentType": "application/vnd.microsoft.card.adaptive",\n'
@@ -205,12 +205,6 @@ def process_event(helper, *args, **kwargs):
         + "                {\n"
         + '                    "type": "FactSet",\n'
         + '                    "facts": [\n'
-    )
-
-    # Set to use new MS webhook
-    alert_ms_teams_new_webhook = helper.get_param("alert_ms_teams_new_webhook") == "1"
-    helper.log_info(
-        f"Use new MS workflow Webhook. Value is {alert_ms_teams_new_webhook}."
     )
 
     # Fields ordering in the message publication, defaults to alphabetical ordering
@@ -319,15 +313,8 @@ def process_event(helper, *args, **kwargs):
             data_json_attachments += "                    ]\n"
             data_json_attachments += "                }\n"
             data_json_attachments += "            ]\n"
-            data_json_attachments += "        }\n"
-            data_json_attachments += "    }\n"
-            data_json_attachments += "]"
-
-            data_json_facts = data_json_facts + "],"
-
-            if not (alert_ms_teams_new_webhook):
-                data_json = data_json + data_json_facts
-
+            
+            
             # MS teams action, this is optional
 
             # First OpenURI action
@@ -407,9 +394,6 @@ def process_event(helper, *args, **kwargs):
 
             # terminate the sections pattern
             data_json = data_json + "\n" + '"markdown": false' + "\n" + "}]"
-
-            if alert_ms_teams_new_webhook:
-                data_json = data_json + ",\n" + data_json_attachments
 
             # Actions statuses
             has_action1 = False
@@ -493,48 +477,44 @@ def process_event(helper, *args, **kwargs):
                     has_postaction = True
 
             if has_action1 or has_action2 or has_postaction:
-                # Create the potentialAction section
-                data_json = data_json + '\n,"potentialAction": [' + "\n"
 
                 if has_action1:
-                    data_json = data_json + "\n{"
-                    data_json = data_json + '"@type": "OpenUri",' + "\n"
-                    data_json = (
-                        data_json
-                        + '"name": "'
-                        + alert_ms_teams_potential_action_name
-                        + '",'
-                        + "\n"
-                    )
-                    data_json = data_json + '"targets": [' + "\n"
-                    data_json = (
-                        data_json
-                        + '{"os": "default", "uri": "'
-                        + checkstr(alert_ms_teams_potential_action_url)
-                        + '"}'
-                        + "\n"
-                    )
-                    data_json = data_json + "]\n" + "}\n"
+                   
+                    helper.log_warn("im here")
+ 
+                    data_json_attachments +=            ","
+                    data_json_attachments += '            "actions": [\n'
+                    data_json_attachments += "               {\n"
+                    data_json_attachments += '                  "type": "Action.OpenUrl",\n'
+                    data_json_attachments += '                  "title": "'+alert_ms_teams_potential_action_name +'",\n'
+                    data_json_attachments += '                  "url": "'+alert_ms_teams_potential_action_url+'"\n'
+                    data_json_attachments += "                  }\n"
+                    data_json_attachments += "            ]\n"
+
+                    data_json_attachments += "        }\n"
+                    data_json_attachments += "    }\n"
+                    data_json_attachments += "]"
+
+                    data_json_facts = data_json_facts + "],"
 
                 if has_action1 and has_action2:
-                    data_json = data_json + "\n,{"
-                    data_json = data_json + '"@type": "OpenUri",' + "\n"
-                    data_json = (
-                        data_json
-                        + '"name": "'
-                        + alert_ms_teams_potential_action_name2
-                        + '",'
-                        + "\n"
-                    )
-                    data_json = data_json + '"targets": [' + "\n"
-                    data_json = (
-                        data_json
-                        + '{"os": "default", "uri": "'
-                        + checkstr(alert_ms_teams_potential_action_url2)
-                        + '"}'
-                        + "\n"
-                    )
-                    data_json = data_json + "]\n" + "}\n"
+                    data_json_attachments +=            ","
+                    data_json_attachments += '            "actions": [\n'
+                    data_json_attachments += "               {\n"
+                    data_json_attachments += '                  "type": "Action.OpenUrl",\n'
+                    data_json_attachments += '                  "title": "'+alert_ms_teams_potential_action_name +'",\n'
+                    data_json_attachments += '                  "url": "'+alert_ms_teams_potential_action_url+'"\n'
+                    data_json_attachments += "                  },\n"
+                    data_json_attachments += "               {\n"
+                    data_json_attachments += '                  "type": "Action.OpenUrl",\n'
+                    data_json_attachments += '                  "title": "'+alert_ms_teams_potential_action_name2 +'",\n'
+                    data_json_attachments += '                  "url": "'+alert_ms_teams_potential_action_url2+'"\n'
+                    data_json_attachments += "                  }\n"
+                    data_json_attachments += "            ]\n"
+
+                    data_json_attachments += "        }\n"
+                    data_json_attachments += "    }\n"
+                    data_json_attachments += "]"
 
                 if has_action2 and not has_action1:
                     helper.log_warn(
@@ -542,7 +522,7 @@ def process_event(helper, *args, **kwargs):
                         "Review your configuration to use the first action instead,"
                         " so far this action is being ignored."
                     )
-
+                """
                 if has_postaction and not has_action1:
                     data_json = data_json + "\n{"
                 if has_postaction and has_action1:
@@ -578,10 +558,13 @@ def process_event(helper, *args, **kwargs):
                             + '"'
                             + "\n"
                         )
-                    data_json = data_json + "\n" + "}\n"
+                    data_json = data_json + "\n" + "}\n" 
 
-                # Terminate the block
-                data_json = data_json + "]\n"
+               # Terminate the block
+               data_json = data_json + "]\n"
+              """
+
+            data_json = data_json + ",\n" + data_json_attachments
 
             # Terminate the json
             data_json = data_json + "\n" + "}"
